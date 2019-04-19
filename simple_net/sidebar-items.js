@@ -1,1 +1,1 @@
-initSidebarItems({});
+initSidebarItems({"struct":[["MeanSquared","Mean squared error."],["Tensor","A row-major 2D matrix of floats."]],"trait":[["Loss",""]]});
