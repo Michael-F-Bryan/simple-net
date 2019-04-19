@@ -3,10 +3,14 @@
 <span id="3">3</span>
 <span id="4">4</span>
 <span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">mod</span> <span class="ident">layers</span>;
 <span class="kw">mod</span> <span class="ident">loss</span>;
 <span class="kw">mod</span> <span class="ident">tensor</span>;
 
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">layers</span>::{<span class="ident">Activation</span>, <span class="ident">Layer</span>, <span class="ident">Linear</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">loss</span>::{<span class="ident">Loss</span>, <span class="ident">MeanSquared</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">tensor</span>::<span class="ident">Tensor</span>;
 </pre></div>

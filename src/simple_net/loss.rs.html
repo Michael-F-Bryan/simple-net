@@ -25,20 +25,18 @@
 <span id="25">25</span>
 <span id="26">26</span>
 <span id="27">27</span>
-<span id="28">28</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! Loss functions measure how good our predictions are.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! They are used to adjust the parameters of our network.</span>
-
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Tensor</span>;
 
+<span class="doccomment">/// Loss functions measure how good our predictions are.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// They are used to adjust the parameters of our network.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Loss</span> {
     <span class="kw">fn</span> <span class="ident">loss</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">prediction</span>: <span class="kw-2">&amp;</span><span class="ident">Tensor</span>, <span class="ident">actual</span>: <span class="kw-2">&amp;</span><span class="ident">Tensor</span>) <span class="op">-&gt;</span> <span class="ident">f32</span>;
     <span class="kw">fn</span> <span class="ident">gradient</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">prediction</span>: <span class="kw-2">&amp;</span><span class="ident">Tensor</span>, <span class="ident">actual</span>: <span class="kw-2">&amp;</span><span class="ident">Tensor</span>) <span class="op">-&gt;</span> <span class="ident">Tensor</span>;
 }
 
-<span class="doccomment">/// Mean squared error.</span>
+<span class="doccomment">/// A loss function based on the mean squared error.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MeanSquared</span>;
 
