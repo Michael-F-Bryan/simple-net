@@ -160,7 +160,7 @@ impl<'a> Sub for &'a Tensor {
 impl<'a> Mul for &'a Tensor {
     type Output = Tensor;
 
-    fn mul(self, other: &'a Tensor) -> Self::Output {
+    fn mul(self, _other: &'a Tensor) -> Self::Output {
         unimplemented!()
     }
 }

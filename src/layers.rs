@@ -58,7 +58,7 @@ impl Layer for Linear {
     }
 }
 
-/// A layer which applies the provided function element-wise over the provided
+/// A layer which applies the provided function element-wise to the provided
 /// input.
 pub struct Activation<Func, Derivative> {
     func: Func,
