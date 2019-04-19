@@ -1,0 +1,22 @@
+language: rust
+rust:
+  - 1.30
+  - stable
+cache:
+  - cargo
+
+script:
+  - cargo build --verbose
+  - cargo test --verbose
+
+before_deploy:
+  - cargo doc --verbose
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: target/doc
+  keep_history: true
+  on:
+    branch: master
