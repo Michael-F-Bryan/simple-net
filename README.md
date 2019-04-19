@@ -1,5 +1,9 @@
 # Simple Net
 
+[![Build Status](https://travis-ci.com/Michael-F-Bryan/simple-net.svg?branch=master)](https://travis-ci.com/Michael-F-Bryan/simple-net)
+
+([API Docs])
+
 A toy deep learning library I made to get a better understanding of neural 
 networks.
 
@@ -24,3 +28,4 @@ license, shall be dual licensed as above, without any additional terms or
 conditions.
 
 [joelnet]: https://github.com/joelgrus/joelnet
+[API Docs]: https://michael-f-bryan.github.io/simple-net/
