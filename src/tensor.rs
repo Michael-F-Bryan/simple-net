@@ -1,4 +1,4 @@
-use std::ops::{Add, Mul, Sub};
+use std::ops::{Add, Index, IndexMut, Mul, Sub};
 
 /// A row-major 2D matrix of floats.
 #[derive(Debug, Clone, PartialEq)]
@@ -37,6 +37,24 @@ impl Tensor {
         t
     }
 
+    pub fn mapped(&self, mut map: impl FnMut(f32) -> f32) -> Tensor {
+        Tensor {
+            data: self.data.iter().map(|&n| map(n)).collect(),
+            width: self.width,
+            height: self.height,
+        }
+    }
+
+    pub fn column(items: impl Iterator<Item = f32>) -> Tensor {
+        let data: Vec<f32> = items.collect();
+        let height = data.len();
+        Tensor {
+            data,
+            height,
+            width: 1,
+        }
+    }
+
     pub fn get(&self, row: usize, column: usize) -> Option<f32> {
         if row >= self.height || column >= self.width {
             None
@@ -64,7 +82,23 @@ impl Tensor {
         (self.width, self.height)
     }
 
+    pub fn transposed(&self) -> Tensor {
+        Tensor::fill(self.height, self.width, |row, col| self[(col, row)])
+    }
+
+    pub fn rows<'this>(
+        &'this self,
+    ) -> impl Iterator<Item = &'this [f32]> + 'this {
+        (0..self.height).map(move |row| {
+            let start = self.get_ix(row, 0);
+            let end = self.get_ix(row, self.width - 1);
+            &self.data[start..=end]
+        })
+    }
+
     fn get_ix(&self, row: usize, column: usize) -> usize {
+        debug_assert!(row < self.height);
+        debug_assert!(column < self.width);
         row * self.width + column
     }
 
@@ -88,6 +122,22 @@ impl<'a> Add for &'a Tensor {
         }
 
         result
+    }
+}
+
+impl Add for Tensor {
+    type Output = Tensor;
+
+    fn add(self, other: Tensor) -> Self::Output {
+        &self + &other
+    }
+}
+
+impl<'a> Add<&'a Tensor> for Tensor {
+    type Output = Tensor;
+
+    fn add(self, other: &'a Tensor) -> Self::Output {
+        &self + other
     }
 }
 
@@ -141,6 +191,28 @@ impl Mul for Tensor {
 
     fn mul(self, other: Tensor) -> Self::Output {
         &self * &other
+    }
+}
+
+impl Index<(usize, usize)> for Tensor {
+    type Output = f32;
+
+    fn index(&self, (row, col): (usize, usize)) -> &Self::Output {
+        assert!(col < self.width);
+        assert!(row < self.height);
+
+        let ix = self.get_ix(row, col);
+        &self.data[ix]
+    }
+}
+
+impl IndexMut<(usize, usize)> for Tensor {
+    fn index_mut(&mut self, (row, col): (usize, usize)) -> &mut Self::Output {
+        assert!(col < self.width);
+        assert!(row < self.height);
+
+        let ix = self.get_ix(row, col);
+        &mut self.data[ix]
     }
 }
 
